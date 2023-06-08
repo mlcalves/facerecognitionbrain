@@ -8,20 +8,8 @@ import Rank from './components/Rank/Rank';
 import ParticlesBg from 'particles-bg';
 import './App.css';
 
-// function App() {
-// return (
-//   <div className="App">
-//     <ParticlesBg type="lines" bg={true} className='particles-bg-canvas-self' />
-//     <Navigation />
-//     <Logo />
-//     <Rank />
-//     <ImageLinkForm />
-//     {/* 
+//const Clarifai = require('clarifai');
 
-//     <FaceRecognition />} */}
-//   </div>
-// );
-// }
 
 const app = new Clarifai.App({
   apiKey: '57a5f0a957684bb797b31a5f1c93782f'
@@ -51,7 +39,7 @@ class App extends Component {
   }
 
   displayFaceBox = (box) => {
-    this.setState({ box: box })
+    this.setState({ box: box });
   }
 
   onInputChange = (event) => {
@@ -62,7 +50,7 @@ class App extends Component {
     this.setState({ imageUrl: this.state.input });
     app.models
       .predict(
-        Clarifai.FACE_DETECT_MODEL,
+        'face-detection',
         this.state.input)
       .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
       .catch(err => console.log(err));
